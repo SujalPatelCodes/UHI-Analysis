@@ -14,7 +14,7 @@ class AnalysisConfig:
 
     # Temporal
     analysis_years: List[int] = field(default_factory=lambda: [2022, 2023])
-    ee_project: Optional[str] = None
+    ee_project: Optional[str] = "uhi-analysis-project"
     index_denominator_epsilon: float = 1e-6
     index_diagnostics: bool = False
     spatial_block_size_m: int = 5000

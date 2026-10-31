@@ -15,31 +15,31 @@ python -m pip install -r requirements.txt
 earthengine authenticate
 ```
 
-On macOS/Linux, activate with `source .venv/bin/activate`. Use a Google Cloud project enabled and registered for Earth Engine. Supply `--project` or set the `EE_PROJECT` environment variable. See [Earth Engine authentication](https://developers.google.com/earth-engine/guides/auth).
-
-> **Tip:** After authenticating, register your Google Cloud project for Earth Engine at [https://code.earthengine.google.com/register](https://code.earthengine.google.com/register) and ensure the **Earth Engine API** is enabled under *APIs & Services* in the Cloud Console.
+On macOS/Linux, activate with `source .venv/bin/activate`. The default Earth Engine Cloud Project is pre-configured to `uhi-analysis-project`. Supply `--project YOUR_PROJECT` only if using a different project, or set the `EE_PROJECT` environment variable. See [Earth Engine authentication](https://developers.google.com/earth-engine/guides/auth).
 
 ## Run
 
 Basic run for Mumbai, two years, fast (no hyperparameter tuning):
 
 ```powershell
-python app.py --city "Mumbai" --years 2022 2023 --project YOUR_CLOUD_PROJECT --no-tune --outputs outputs/mumbai_2022_2023
+python app.py --city "Mumbai" --years 2022 2023 --project uhi-analysis-project --no-tune --outputs outputs/mumbai_2022_2023
 ```
+
+*(Note: `--project` defaults to `uhi-analysis-project`, so you can also simply run `python app.py --city "Mumbai" --years 2022 2023 --no-tune --outputs outputs/mumbai_2022_2023`)*
 
 Explicit bounds avoid a geocoder request and make the study area reproducible:
 
 ```powershell
-python app.py --city "Mumbai" --roi-bounds 72.75 18.85 73.05 19.35 --years 2022 2023 --project YOUR_CLOUD_PROJECT --outputs outputs/mumbai_bounds
+python app.py --city "Mumbai" --roi-bounds 72.75 18.85 73.05 19.35 --years 2022 2023 --project uhi-analysis-project --outputs outputs/mumbai_bounds
 ```
 
 Landsat temperature analysis at a finer output grid with diagnostics:
 
 ```powershell
-python app.py --city "Delhi" --years 2023 --source LANDSAT --resolution 500 --project YOUR_CLOUD_PROJECT --no-tune --index-diagnostics --outputs outputs/delhi_landsat_2023
+python app.py --city "Delhi" --years 2023 --source LANDSAT --resolution 500 --project uhi-analysis-project --no-tune --index-diagnostics --outputs outputs/delhi_landsat_2023
 ```
 
-See `run_commands.txt` in the project root for ready-to-use commands for 10 different cities.
+See [`run_commands.txt`](run_commands.txt) in the project root for ready-to-use commands for 10 different cities.
 
 ### Useful options
 
@@ -55,6 +55,7 @@ See `run_commands.txt` in the project root for ready-to-use commands for 10 diff
 | `--index-epsilon` | 0.000001 | Mask index denominators with absolute sum <= this value |
 | `--index-diagnostics` | off | Estimate the negative-input masking condition; adds EE work |
 | `--no-tune` | off | Skip grouped hyperparameter search |
+| `--project` | uhi-analysis-project | Earth Engine Google Cloud project ID |
 
 Use `python app.py --help` for all options. Configuration is validated before accessing Earth Engine. Supported analysis years start at 2013 because Landsat 8 indices are required with either LST source. The ROI must lie within the workflow's SRTM coverage limits, latitude -56 to 60, and cannot cross the antimeridian. Resolution is restricted to 1000–2000 m for MODIS and 30–2000 m for Landsat; 30 m product spacing does not imply 30 m independent thermal detail.
 

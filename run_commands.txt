@@ -1,178 +1,166 @@
 ================================================================================
-  UHI ANALYSIS — POWERSHELL RUN COMMANDS
+  UHI ANALYSIS -- POWERSHELL RUN COMMANDS
   Urban Heat Island Analysis with Google Earth Engine
   Author  : Sujal Patel (https://github.com/sujalpatelcodes)
   Project : https://github.com/sujalpatelcodes/UHI-Analysis
-  Replace YOUR_CLOUD_PROJECT with your actual GEE Cloud project ID
-  e.g.  --project uhi-analysis-project
 ================================================================================
 
-SETUP (run once before any command below)
-------------------------------------------
-  cd D:\Project\UHI-Analysis-main
-  .\.venv\Scripts\Activate.ps1
+PREREQUISITES (Run once in PowerShell)
+--------------------------------------
+1. Navigate to your project folder:
+   cd D:\Project\UHI-Analysis-main
+
+2. Activate virtual environment:
+   .\.venv\Scripts\Activate.ps1
+
+3. Verify Earth Engine authentication:
+   python -c "import ee; ee.Initialize(project='uhi-analysis-project'); print('Connected!')"
 
 
 ================================================================================
- 1. MUMBAI, INDIA — MODIS, 2022 & 2023 (fast, no tuning)
-    Dense coastal megacity with significant urban sprawl
+ QUICK RUN (YOUR DEFAULT PROJECT: uhi-analysis-project)
+ You can run the code with or without specifying --project!
 ================================================================================
+
+# 1. MUMBAI, INDIA (Single-line copy-paste ready)
+python app.py --city "Mumbai" --years 2022 2023 --no-tune --outputs outputs/mumbai_2022_2023
+
+# Multiline version:
 python app.py `
     --city "Mumbai" `
     --years 2022 2023 `
-    --project YOUR_CLOUD_PROJECT `
+    --project uhi-analysis-project `
     --no-tune `
     --outputs outputs/mumbai_2022_2023
 
 
-================================================================================
- 2. DELHI, INDIA — MODIS, 2022 & 2023, with index diagnostics
-    Capital city, extreme summer heat, heavy particulate cover
-================================================================================
+# 2. DELHI, INDIA (Capital region, extreme summer LST contrast)
+python app.py --city "Delhi" --years 2022 2023 --no-tune --index-diagnostics --outputs outputs/delhi_2022_2023
+
+# Multiline version:
 python app.py `
     --city "Delhi" `
     --years 2022 2023 `
-    --project YOUR_CLOUD_PROJECT `
+    --project uhi-analysis-project `
     --no-tune `
     --index-diagnostics `
     --outputs outputs/delhi_2022_2023
 
 
-================================================================================
- 3. BANGALORE, INDIA — MODIS, 2021-2023, auto clustering
-    Rapidly urbanising tech hub on the Deccan plateau
-================================================================================
+# 3. BENGALURU, INDIA (Tech capital on Deccan plateau, 3-year trend)
+python app.py --city "Bengaluru" --years 2021 2022 2023 --no-tune --outputs outputs/bangalore_2021_2023
+
+# Multiline version:
 python app.py `
     --city "Bengaluru" `
     --years 2021 2022 2023 `
-    --project YOUR_CLOUD_PROJECT `
+    --project uhi-analysis-project `
     --no-tune `
     --outputs outputs/bangalore_2021_2023
 
 
-================================================================================
- 4. DUBAI, UAE — MODIS, 2022 & 2023, explicit ROI
-    Hyper-arid desert city with extreme LST contrasts
-================================================================================
+# 4. DUBAI, UAE (Hyper-arid desert city with exact bounding box)
+python app.py --city "Dubai" --roi-bounds 55.10 25.00 55.55 25.35 --years 2022 2023 --no-tune --outputs outputs/dubai_2022_2023
+
+# Multiline version:
 python app.py `
     --city "Dubai" `
     --roi-bounds 55.10 25.00 55.55 25.35 `
     --years 2022 2023 `
-    --project YOUR_CLOUD_PROJECT `
+    --project uhi-analysis-project `
     --no-tune `
     --outputs outputs/dubai_2022_2023
 
 
-================================================================================
- 5. CAIRO, EGYPT — MODIS, 2022 & 2023, 4 clusters
-    Nile delta city with sharp desert-urban boundary
-================================================================================
+# 5. CAIRO, EGYPT (Nile delta and desert boundary, 4 clusters)
+python app.py --city "Cairo" --years 2022 2023 --clusters 4 --no-tune --outputs outputs/cairo_2022_2023
+
+# Multiline version:
 python app.py `
     --city "Cairo" `
     --years 2022 2023 `
     --clusters 4 `
-    --project YOUR_CLOUD_PROJECT `
+    --project uhi-analysis-project `
     --no-tune `
     --outputs outputs/cairo_2022_2023
 
 
-================================================================================
- 6. LOS ANGELES, USA — LANDSAT, 2022 & 2023, 500 m resolution
-    Classic UHI case study city in a Mediterranean climate
-================================================================================
+# 6. LOS ANGELES, USA (Landsat 8 LST at 500 m grid)
+python app.py --city "Los Angeles" --years 2022 2023 --source LANDSAT --resolution 500 --no-tune --outputs outputs/los_angeles_landsat_2022_2023
+
+# Multiline version:
 python app.py `
     --city "Los Angeles" `
     --years 2022 2023 `
     --source LANDSAT `
     --resolution 500 `
-    --project YOUR_CLOUD_PROJECT `
+    --project uhi-analysis-project `
     --no-tune `
     --outputs outputs/los_angeles_landsat_2022_2023
 
 
-================================================================================
- 7. BEIJING, CHINA — MODIS, 2022 & 2023, WorldCover 2020
-    Large continental megacity, severe seasonal temperature range
-================================================================================
+# 7. BEIJING, CHINA (Continental climate, WorldCover 2020 baseline)
+python app.py --city "Beijing" --years 2022 2023 --worldcover-year 2020 --no-tune --outputs outputs/beijing_2022_2023
+
+# Multiline version:
 python app.py `
     --city "Beijing" `
     --years 2022 2023 `
     --worldcover-year 2020 `
-    --project YOUR_CLOUD_PROJECT `
+    --project uhi-analysis-project `
     --no-tune `
     --outputs outputs/beijing_2022_2023
 
 
-================================================================================
- 8. SAO PAULO, BRAZIL — MODIS, 2022 & 2023, with tuning
-    Largest city in the Southern Hemisphere, tropical highland
-================================================================================
+# 8. SAO PAULO, BRAZIL (Tropical highland with hyperparameter tuning)
+python app.py --city "Sao Paulo" --years 2022 2023 --outputs outputs/sao_paulo_2022_2023
+
+# Multiline version:
 python app.py `
     --city "Sao Paulo" `
     --years 2022 2023 `
-    --project YOUR_CLOUD_PROJECT `
+    --project uhi-analysis-project `
     --outputs outputs/sao_paulo_2022_2023
 
 
-================================================================================
- 9. LONDON, UK — MODIS, 2022 & 2023, 3 clusters, larger block size
-    Temperate European megacity with strong UHI documented since 1800s
-================================================================================
+# 9. LONDON, UK (Temperate European megacity, 3 clusters, 8 km spatial blocks)
+python app.py --city "London" --years 2022 2023 --clusters 3 --block-size 8000 --no-tune --outputs outputs/london_2022_2023
+
+# Multiline version:
 python app.py `
     --city "London" `
     --years 2022 2023 `
     --clusters 3 `
     --block-size 8000 `
-    --project YOUR_CLOUD_PROJECT `
+    --project uhi-analysis-project `
     --no-tune `
     --outputs outputs/london_2022_2023
 
 
-================================================================================
-10. TOKYO, JAPAN — MODIS, 2021-2023, explicit ROI, auto clustering
-    World's largest metropolitan area, strong coastal-inland gradient
-================================================================================
+# 10. TOKYO, JAPAN (Explicit ROI bounding box, 3-year analysis)
+python app.py --city "Tokyo" --roi-bounds 139.50 35.50 139.95 35.85 --years 2021 2022 2023 --no-tune --outputs outputs/tokyo_2021_2023
+
+# Multiline version:
 python app.py `
     --city "Tokyo" `
     --roi-bounds 139.50 35.50 139.95 35.85 `
     --years 2021 2022 2023 `
-    --project YOUR_CLOUD_PROJECT `
+    --project uhi-analysis-project `
     --no-tune `
     --outputs outputs/tokyo_2021_2023
 
 
 ================================================================================
- BONUS — View available CLI options at any time
+ HELPFUL CLI OPTIONS & FLAGS
 ================================================================================
-python app.py --help
-
-
+--city "Name"             City to geocode using OpenStreetMap Nominatim
+--roi-bounds W S E N      Custom bounding box (avoids geocoder, reproducible)
+--years 2022 2023         One or more analysis years (>= 2013)
+--source MODIS|LANDSAT    Primary thermal sensor (MODIS Terra or Landsat 8)
+--resolution 1000         Output analysis grid in meters (MODIS: 1000-2000, Landsat: 30-2000)
+--no-tune                 Skips slow Random Forest hyperparameter tuning (recommended for quick runs)
+--index-diagnostics       Estimates negative-input mask sensitivity
+--clusters auto|2|3|4|5   Temperature zone clustering (auto uses silhouette score)
+--outputs outputs/path    Folder to store maps, figures, CSVs, and summary.json
+--help                    Displays full manual of all available options
 ================================================================================
- TIPS
-================================================================================
-- Each command creates its own output folder — use a unique --outputs path
-  per run to avoid overwriting results.
-
-- Use --no-tune for faster runs; omit it to enable grouped Random Forest
-  hyperparameter search (slower but potentially better model accuracy).
-
-- Pass --index-diagnostics to estimate how many observations would be masked
-  if negative reflectances were rejected (adds extra Earth Engine computation).
-
-- LANDSAT source supports --resolution down to 30 m, but true thermal detail
-  is limited by TIRS band resolution (~100 m). Use 500-1000 m for reliable
-  spatial statistics over a city-scale ROI.
-
-- If a city geocode returns a region that is too large or crosses the
-  antimeridian, supply explicit --roi-bounds west south east north.
-
-- Results are saved in summary.json. Check the "status" field:
-    "complete"  -- all years and the ML step succeeded
-    "partial"   -- some years succeeded; check "failures" key
-    "failed"    -- no year data was produced
-
-- The interactive HTML maps (e.g. mumbai_2022_interactive_map.html) require
-  an internet connection to load Earth Engine tile layers. Open them in any
-  modern web browser.
-================================================================================
-

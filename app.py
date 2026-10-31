@@ -36,7 +36,11 @@ def parse_args() -> AnalysisConfig:
     p.add_argument(
         "--no-tune", action="store_true", help="Disable hyperparameter tuning"
     )
-    p.add_argument("--project", help="Earth Engine Cloud project (or set EE_PROJECT)")
+    p.add_argument(
+        "--project",
+        default="uhi-analysis-project",
+        help="Earth Engine Cloud project (default: uhi-analysis-project)",
+    )
     p.add_argument("--worldcover-year", type=int, choices=[2020, 2021], default=2021)
     p.add_argument(
         "--index-epsilon",
@@ -73,7 +77,11 @@ def parse_args() -> AnalysisConfig:
     cfg.outputs_dir = args.outputs
     cfg.log_level = args.log_level
     cfg.perform_hyperparameter_tuning = not args.no_tune
-    cfg.ee_project = args.project
+    # Default to uhi-analysis-project if not specified or placeholder is used
+    chosen_project = args.project
+    if not chosen_project or chosen_project == "YOUR_CLOUD_PROJECT":
+        chosen_project = "uhi-analysis-project"
+    cfg.ee_project = chosen_project
     cfg.worldcover_year = args.worldcover_year
     cfg.index_denominator_epsilon = args.index_epsilon
     cfg.index_diagnostics = args.index_diagnostics
