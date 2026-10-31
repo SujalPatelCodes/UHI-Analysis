@@ -1,0 +1,170 @@
+# =============================================================================
+# .gitignore — UHI Analysis with Google Earth Engine
+# Author: Sujal Patel (https://github.com/sujalpatelcodes)
+# =============================================================================
+
+
+# -----------------------------------------------------------------------------
+# Python — bytecode & cache
+# -----------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+
+
+# -----------------------------------------------------------------------------
+# Python — virtual environments
+# -----------------------------------------------------------------------------
+.venv/
+venv/
+env/
+ENV/
+.env/
+.Python
+
+
+# -----------------------------------------------------------------------------
+# Python — packaging & distribution
+# -----------------------------------------------------------------------------
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+pip-wheel-metadata/
+MANIFEST
+*.whl
+
+
+# -----------------------------------------------------------------------------
+# Python — testing & coverage
+# -----------------------------------------------------------------------------
+.pytest_cache/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+.tox/
+.nox/
+nosetests.xml
+
+
+# -----------------------------------------------------------------------------
+# Python — type checkers & linters
+# -----------------------------------------------------------------------------
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.ruff_cache/
+.pytype/
+
+
+# -----------------------------------------------------------------------------
+# Jupyter Notebooks — checkpoints
+# -----------------------------------------------------------------------------
+.ipynb_checkpoints/
+*.ipynb
+
+
+# -----------------------------------------------------------------------------
+# Google Earth Engine — credentials (NEVER commit)
+# -----------------------------------------------------------------------------
+credentials
+.earthengine/
+*_credentials.json
+service_account_key*.json
+
+
+# -----------------------------------------------------------------------------
+# Project outputs — all generated at runtime (can be large)
+# Includes: plots, maps, CSVs, logs, summaries from every city run
+# -----------------------------------------------------------------------------
+outputs/
+
+# Individual output file types (if stored outside outputs/)
+*.png
+*.jpg
+*.jpeg
+*_interactive_map.html
+*_samples.csv
+samples_all_years.csv
+model_split.csv
+summary.json
+uhi_analysis.log
+*.log
+
+
+# -----------------------------------------------------------------------------
+# Scratch / temporary files
+# -----------------------------------------------------------------------------
+scratch_*.py
+*.tmp
+*.temp
+*.bak
+*.orig
+
+
+# -----------------------------------------------------------------------------
+# IDEs and editors
+# -----------------------------------------------------------------------------
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# PyCharm / JetBrains
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Vim / Emacs
+*.swp
+*.swo
+*~
+\#*\#
+.\#*
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Spyder
+.spyproject/
+.spyderproject.cfg
+
+
+# -----------------------------------------------------------------------------
+# Operating system files
+# -----------------------------------------------------------------------------
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Linux
+*~
+
+
+# -----------------------------------------------------------------------------
+# Secrets & environment variables
+# -----------------------------------------------------------------------------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
